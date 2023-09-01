@@ -1,6 +1,6 @@
 import openai
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 CORS(app, resources={r"/recommendations": {"origins": "http://localhost:3000"}})
@@ -10,6 +10,7 @@ def home():
     return "Hello, this is the home page of your Flask app."
 
 @app.route('/recommendations', methods=['POST'])
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
 def get_recommendations():
     job_description = request.json.get('job_description', '')
     
