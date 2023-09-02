@@ -8,6 +8,9 @@ app = Flask(__name__)
 CORS(app, resources={
     r"/recommendations": {
         "origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]
+    },
+    r"/scrape": {
+        "origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]
     }
 })
 
@@ -16,15 +19,19 @@ def home():
     return "Hello, this is the home page of your Flask app."
 
 @app.route('/scrape', methods=['POST'])
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
 def scrape_job_ad():
     url = request.json.get('url', '')
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Assuming job description is in a tag with id='jobDescription'
-    job_description = soup.find(id='jobDescription').text if soup.find(id='jobDescription') else "Not found"
-    
-    return jsonify({"job_description": job_description})
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Assuming job description is in a tag with id='jobDescription'
+        job_description = soup.find(id='job-description').text if soup.find(id='job-description') else "Not found"
+        
+        return jsonify({"job_description": job_description})
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 @app.route('/recommendations', methods=['POST'])
 @cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
