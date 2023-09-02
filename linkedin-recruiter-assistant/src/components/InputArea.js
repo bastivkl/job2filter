@@ -5,7 +5,7 @@ const InputArea = ({ setRecommendations }) => {
   const [jobDescription, setJobDescription] = useState('');
 
   const handleSubmit = () => {
-    fetch('http://localhost:5000/recommendations', {
+    fetch('https://your-backend-url.onrender.com/recommendations', {  // Ändern Sie die URL entsprechend
       method: 'POST',
       mode: 'cors',
       headers: {
