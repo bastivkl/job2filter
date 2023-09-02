@@ -1,6 +1,8 @@
 import openai
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
+from bs4 import BeautifulSoup
+import requests
 
 app = Flask(__name__)
 CORS(app, resources={
@@ -8,9 +10,21 @@ CORS(app, resources={
         "origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]
     }
 })
+
 @app.route('/', methods=['GET'])
 def home():
     return "Hello, this is the home page of your Flask app."
+
+@app.route('/scrape', methods=['POST'])
+def scrape_job_ad():
+    url = request.json.get('url', '')
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Assuming job description is in a tag with id='jobDescription'
+    job_description = soup.find(id='jobDescription').text if soup.find(id='jobDescription') else "Not found"
+    
+    return jsonify({"job_description": job_description})
 
 @app.route('/recommendations', methods=['POST'])
 @cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
@@ -34,3 +48,4 @@ def get_recommendations():
 
 if __name__ == "__main__":
     app.run(debug=True)
+

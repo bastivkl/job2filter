@@ -3,11 +3,30 @@ import './InputArea.css';
 
 const InputArea = ({ setRecommendations }) => {
   const [jobDescription, setJobDescription] = useState('');
+  const [jobUrl, setJobUrl] = useState('');
+
+  const handleScrape = () => {
+    fetch('https://job2filter.onrender.com/scrape', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ url: jobUrl }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.job_description) {
+        setJobDescription(data.job_description);
+      }
+    })
+    .catch(error => {
+      console.error('There was an error scraping the job ad:', error);
+    });
+  };
 
   const handleSubmit = () => {
-    fetch('https://job2filter.onrender.com/recommendations', {  // Ändern Sie die URL entsprechend
+    fetch('https://job2filter.onrender.com/recommendations', {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,11 +47,20 @@ const InputArea = ({ setRecommendations }) => {
 
   return (
     <div className="input-area">
-      <h1>Paste Job Description</h1>
+      <h1>Job Description</h1>
+      <div className="input-box">
+        <input 
+          type="text" 
+          placeholder="Paste the job ad URL here..." 
+          onChange={(e) => setJobUrl(e.target.value)}
+        />
+        <button type="button" onClick={handleScrape}>Scrape Job Ad</button>
+      </div>
       <div className="input-box">
         <textarea 
           rows="10" 
-          placeholder="Paste the job description here..." 
+          placeholder="Or paste the job description here..." 
+          value={jobDescription}
           onChange={(e) => setJobDescription(e.target.value)}
         ></textarea>
       </div>
