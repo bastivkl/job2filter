@@ -3,8 +3,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-CORS(app, resources={r"/recommendations": {"origins": "http://localhost:3000"}})
-
+CORS(app, resources={
+    r"/recommendations": {
+        "origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]
+    }
+})
 @app.route('/', methods=['GET'])
 def home():
     return "Hello, this is the home page of your Flask app."
