@@ -19,7 +19,7 @@ def home():
     return "Hello, this is the home page of your Flask app."
 
 @app.route('/scrape', methods=['POST'])
-@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
+@cross_origin(origin=['http://localhost:3000', 'https://frontend-job2filter.onrender.com'], headers=['Content-Type', 'Authorization'])
 def scrape_job_ad():
     url = request.json.get('url', '')
     try:
@@ -31,13 +31,13 @@ def scrape_job_ad():
         return jsonify({"error": str(e)})
 
 @app.route('/recommendations', methods=['POST'])
-@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
+@cross_origin(origin=['http://localhost:3000', 'https://frontend-job2filter.onrender.com'], headers=['Content-Type', 'Authorization'])
 def get_recommendations():
     job_description = request.json.get('job_description', '')
     try:
         response = openai.Completion.create(
           engine="text-davinci-003",
-          prompt=f"Generate LinkedIn Recruiter filters and keywords based on the following job description: {job_description}",
+          prompt=f"Please provide a thorough and detailed list of appropriate filters to be used on LinkedIn Recruiter for the given job advertisement: {job_description}",
           max_tokens=100
         )
         recommendations = response.choices[0].text.strip()
