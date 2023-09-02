@@ -5,6 +5,7 @@ const InputArea = ({ setRecommendations }) => {
   const [jobDescription, setJobDescription] = useState('');
   const [jobUrl, setJobUrl] = useState('');
 
+  // Function to scrape job ad from a URL
   const handleScrape = () => {
     fetch('https://job2filter.onrender.com/scrape', {
       method: 'POST',
@@ -24,6 +25,7 @@ const InputArea = ({ setRecommendations }) => {
     });
   };
 
+  // Function to get recommendations based on the job description
   const handleSubmit = () => {
     fetch('https://job2filter.onrender.com/recommendations', {
       method: 'POST',
@@ -70,3 +72,4 @@ const InputArea = ({ setRecommendations }) => {
 };
 
 export default InputArea;
+
