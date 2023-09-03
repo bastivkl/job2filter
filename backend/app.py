@@ -1,39 +1,28 @@
-import os
 import openai
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from bs4 import BeautifulSoup
-import requests
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
-
-# Initialize OpenAI API
-openai.api_key = os.environ.get("OPENAI_API_KEY", "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")
+CORS(app, resources={
+    r"/recommendations": {
+        "origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]
+    }
+})
 
 @app.route('/', methods=['GET'])
 def home():
     return "Hello, this is the home page of your Flask app."
 
-@app.route('/scrape', methods=['POST'])
-@cross_origin(origin=['http://localhost:3000', 'https://frontend-job2filter.onrender.com'], headers=['Content-Type', 'Authorization'])
-def scrape_job_ad():
-    print("Scrape route hit")
-    url = request.json.get('url', '')
-    print(f"Received URL: {url}")
-    try:
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        job_description = soup.find(id='job-description').text if soup.find(id='job-description') else "Not found"
-        return jsonify({"job_description": job_description})
-    except Exception as e:
-        return jsonify({"error": str(e)})
-
 @app.route('/recommendations', methods=['POST'])
-@cross_origin(origin=['http://localhost:3000', 'https://frontend-job2filter.onrender.com'], headers=['Content-Type', 'Authorization'])
+@cross_origin(origin='http://localhost:3000", "https://frontend-job2filter.onrender.com', headers=['Content-Type', 'Authorization'])
 def get_recommendations():
     job_description = request.json.get('job_description', '')
+    
+    # Initialize OpenAI API
+    openai.api_key = "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"
+
     try:
+        # Make API call to GPT-3 or GPT-4
         response = openai.Completion.create(
           engine="text-davinci-003",
           prompt=f"Please provide a thorough and detailed list of appropriate filters to be used on LinkedIn Recruiter for the given job advertisement: {job_description}",
