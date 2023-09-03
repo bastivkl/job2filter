@@ -13,4 +13,5 @@ const Recommendations = ({ recommendations }) => {
     </div>
   );
 };
+
 export default Recommendations;
