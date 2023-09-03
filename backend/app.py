@@ -31,7 +31,7 @@ def get_recommendations():
             ]
         )
         recommendations = response['choices'][0]['message']['content'].strip()
-        
+
                 # Convert the recommendations string into a list
         recommendations_list = recommendations.split(';')  # Assuming ';' is the separator
 
@@ -40,4 +40,4 @@ def get_recommendations():
         return jsonify({"error": str(e)})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
