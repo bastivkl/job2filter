@@ -25,8 +25,8 @@ def get_recommendations():
         # Make API call to GPT-3 or GPT-4
         response = openai.Completion.create(
           engine="text-davinci-003",
-          prompt=f"Please provide a thorough and detailed list of appropriate filters to be used on LinkedIn Recruiter for the given job advertisement: {job_description}",
-          max_tokens=100
+          prompt=f"Based on the following job description, please provide a detailed list of recommended filters to use in LinkedIn Recruiter for finding the most suitable candidates. Please categorize your recommendations for all the candidate search filters that exist in the LinkedIn recruiter. The job description is as follows: {job_description}",
+          max_tokens=300
         )
         recommendations = response.choices[0].text.strip().split('\n')
         return jsonify({"recommendations": recommendations})
