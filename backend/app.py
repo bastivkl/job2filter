@@ -27,7 +27,7 @@ def get_recommendations():
           model="gpt-3.5-turbo",
            messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": f"Please provide a list of LinkedIn Recruiter filters for the role: {job_description}"}
+                {"role": "user", "content": f"Based on the following job description, please provide a detailed list of recommendations for all possible Linkedin recruiter filters for the candidate search for finding the most suitable candidate. The job description is as follows: {job_description}"}
             ]
         )
         recommendations = response['choices'][0]['message']['content'].strip()
