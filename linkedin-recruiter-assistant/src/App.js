@@ -4,7 +4,8 @@ import InputArea from './components/InputArea';
 import Recommendations from './components/Recommendations';
 
 function App() {
-  const [recommendations, setRecommendations] = useState('Your recommendations will appear here.');
+  // Initialize recommendations as an array with a single string element
+  const [recommendations, setRecommendations] = useState(['Your recommendations will appear here.']);
 
   return (
     <div className="App">

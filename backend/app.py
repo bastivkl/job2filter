@@ -14,7 +14,7 @@ def home():
     return "Hello, this is the home page of your Flask app."
 
 @app.route('/recommendations', methods=['POST'])
-@cross_origin(origin='http://localhost:3000", "https://frontend-job2filter.onrender.com', headers=['Content-Type', 'Authorization'])
+@cross_origin(origin=['http://localhost:3000', 'https://frontend-job2filter.onrender.com'], headers=['Content-Type', 'Authorization'])
 def get_recommendations():
     job_description = request.json.get('job_description', '')
     
@@ -28,7 +28,7 @@ def get_recommendations():
           prompt=f"Please provide a thorough and detailed list of appropriate filters to be used on LinkedIn Recruiter for the given job advertisement: {job_description}",
           max_tokens=100
         )
-        recommendations = response.choices[0].text.strip()
+        recommendations = response.choices[0].text.strip().split('\n')
         return jsonify({"recommendations": recommendations})
     except Exception as e:
         return jsonify({"error": str(e)})
