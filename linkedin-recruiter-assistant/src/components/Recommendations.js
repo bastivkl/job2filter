@@ -2,7 +2,7 @@ import React from 'react';
 import './Recommendations.css';
 
 const Recommendations = ({ recommendations }) => {
-  console.log("Debugging recommendationsArray:", recommendations);  // Debugging line
+  // console.log("Debugging recommendationsArray:", recommendations);  // Debugging line
 
   return (
     <div className="recommendations">
