@@ -31,10 +31,13 @@ def get_recommendations():
             ]
         )
         recommendations = response['choices'][0]['message']['content'].strip()
-        return jsonify({"recommendations": recommendations})
+        
+                # Convert the recommendations string into a list
+        recommendations_list = recommendations.split(';')  # Assuming ';' is the separator
+
+        return jsonify({"recommendations": recommendations_list})
     except Exception as e:
         return jsonify({"error": str(e)})
 
 if __name__ == "__main__":
     app.run(debug=True)
-
