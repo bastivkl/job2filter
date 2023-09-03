@@ -6,7 +6,11 @@ const Recommendations = ({ recommendations }) => {
     <div className="recommendations">
       <h1>LinkedIn Recruiter Recommendations</h1>
       <div className="recommendation-box">
-        <p>{recommendations}</p>
+        <ul>
+          {recommendations.map((rec, index) => (
+            <li key={index}>{rec}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
