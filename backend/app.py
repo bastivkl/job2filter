@@ -18,7 +18,9 @@ def home():
 @app.route('/scrape', methods=['POST'])
 @cross_origin(origin=['http://localhost:3000', 'https://frontend-job2filter.onrender.com'], headers=['Content-Type', 'Authorization'])
 def scrape_job_ad():
+    print("Scrape route hit")
     url = request.json.get('url', '')
+    print(f"Received URL: {url}")
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
