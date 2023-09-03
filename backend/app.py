@@ -6,10 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 app = Flask(__name__)
-CORS(app, resources={
-    r"/recommendations": {"origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]},
-    r"/scrape": {"origins": ["http://localhost:3000", "https://frontend-job2filter.onrender.com"]}
-})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize OpenAI API
 openai.api_key = os.environ.get("OPENAI_API_KEY", "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")
