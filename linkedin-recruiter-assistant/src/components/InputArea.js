@@ -5,8 +5,9 @@ const InputArea = ({ setRecommendations }) => {
   const [jobDescription, setJobDescription] = useState('');
 
   const handleSubmit = () => {
-    fetch('https://job2filter.onrender.com/recommendations', {
+    fetch('https://job2filter.onrender.com/recommendations', {  // Ändern Sie die URL entsprechend
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
