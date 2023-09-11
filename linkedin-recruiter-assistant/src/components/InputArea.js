@@ -5,9 +5,8 @@ const InputArea = ({ setRecommendations }) => {
   const [jobDescription, setJobDescription] = useState('');
 
   const handleSubmit = () => {
-    fetch('https://job2filter.onrender.com/recommendations', {  // Ändern Sie die URL entsprechend
+    fetch('https://job2filter.onrender.com/recommendations', {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,7 +27,7 @@ const InputArea = ({ setRecommendations }) => {
 
   return (
     <div className="input-area">
-      <h1>Paste Job Description</h1>
+      <h1>Job Description</h1>
       <div className="input-box">
         <textarea 
           rows="10" 
@@ -42,3 +41,5 @@ const InputArea = ({ setRecommendations }) => {
 };
 
 export default InputArea;
+
+

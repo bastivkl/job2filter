@@ -2,11 +2,19 @@ import React from 'react';
 import './Recommendations.css';
 
 const Recommendations = ({ recommendations }) => {
+  // console.log("Debugging recommendationsArray:", recommendations);  // Debugging line
+
   return (
     <div className="recommendations">
       <h1>LinkedIn Recruiter Recommendations</h1>
       <div className="recommendation-box">
-        <p>{recommendations}</p>
+        <ul>
+          {recommendations && recommendations.length > 0 ? (
+            recommendations.map((rec, index) => <li key={index}>{rec}</li>)
+          ) : (
+            <li>No recommendations available</li>
+          )}
+        </ul>
       </div>
     </div>
   );
