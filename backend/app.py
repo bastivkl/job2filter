@@ -21,7 +21,7 @@ def get_recommendations():
     openai.api_key = "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"
 
     try:
-        # Make API call to GPT-3 or GPT-4
+        # Make API call to GPT- 3 or GPT-4
         response = openai.Completion.create(
           engine="text-davinci-003",
           prompt=f"Generate LinkedIn Recruiter filters and keywords based on the following job description: {job_description}",
