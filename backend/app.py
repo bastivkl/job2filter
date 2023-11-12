@@ -18,7 +18,7 @@ def get_recommendations():
     job_description = request.json.get('job_description', '')
     
     # Initialize OpenAI API
-    openai.api_key = "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"
+    openai.api_key = "key"
 
     try:
         # Make API call to GPT-3 or GPT-4
